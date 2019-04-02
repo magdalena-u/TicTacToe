@@ -45,7 +45,6 @@ main {
 .line {
     position: absolute;
     background-color: #B57800;
-    transition: 0.2s;
     width: 0px;
     height: 0px;
 }

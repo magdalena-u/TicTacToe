@@ -18,12 +18,14 @@ const winningPattern = [{
         left: 10,
         width: 340,
         height: 5,
+        rotate: 0,
     }, {
         pattern: '456',
         top: 172,
         left: 10,
         width: 340,
         height: 5,
+        rotate: 0,
     },
     {
         pattern: '789',
@@ -31,6 +33,7 @@ const winningPattern = [{
         left: 10,
         width: 340,
         height: 5,
+        rotate: 0,
     },
     {
         pattern: '147',
@@ -38,6 +41,7 @@ const winningPattern = [{
         left: 58,
         width: 5,
         height: 340,
+        rotate: 0,
     },
     {
         pattern: '258',
@@ -45,6 +49,7 @@ const winningPattern = [{
         left: 178,
         width: 5,
         height: 340,
+        rotate: 0,
     },
     {
         pattern: '369',
@@ -52,6 +57,7 @@ const winningPattern = [{
         left: 298,
         width: 5,
         height: 340,
+        rotate: 0,
     },
     {
         pattern: '159',
@@ -69,11 +75,15 @@ const winningPattern = [{
         height: 450,
         rotate: 45,
     },
+    {
+        pattern: 'clear',
+        top: 0,
+        left: 0,
+        width: 0,
+        height: 0,
+        rotate: 0,
+    }
 ]
-
-// ,     pattern: '456'
-//}'789', '147', '258', '369', '159', '357'];
-
 
 //draw line
 
@@ -85,15 +95,28 @@ function drawLine(win) {
     line.style.transform = `rotate(${winningPattern[win].rotate}deg)`;
 }
 
+//clear score after the game
+function clearScore() {
+    playerOne.score = [];
+    playerTwo.score = [];
+    //display score of player One
+    const resultOne = document.querySelector('.result_one');
+    resultOne.innerHTML = playerOne.result;
+    //display score of player Two
+    const resultTwo = document.querySelector('.result_two');
+    resultTwo.innerHTML = playerTwo.result;
+    startBtn.classList.toggle('active');
+}
+
 //add points for winner
 function playerOneWin() {
     playerOne.result += 1;
-    renderGame();
+    clearScore()
 }
 
 function playerTwoWin() {
     playerTwo.result += 1;
-    renderGame();
+    clearScore()
 }
 
 //conditions of win
@@ -124,35 +147,34 @@ const whoWin = () => {
             return playerTwoWin()
         }
     }
+    //draw
+
 }
 
 
 
 playGame = (e) => {
-
-    if (flag === true) {
-        e.target.innerText = playerOne.mark;
-        playerOne.score.push(e.target.id);
-        flag = !flag;
-    } else {
-        e.target.innerText = playerTwo.mark;
-        let score = e.target.id;
-        playerTwo.score.push(score);
-        flag = !flag;
+    if (e.target.innerText === '') {
+        if (flag === true) {
+            e.target.innerText = playerOne.mark;
+            playerOne.score.push(e.target.id);
+            flag = !flag;
+        } else {
+            e.target.innerText = playerTwo.mark;
+            let score = e.target.id;
+            playerTwo.score.push(score);
+            flag = !flag;
+        }
+        whoWin()
     }
-    whoWin()
 }
 
 function renderGame() {
-    startBtn.classList.remove('active');
-    div.forEach(item => item.addEventListener('click', playGame))
-    //display score of player One
-    const resultOne = document.querySelector('.result_one');
-    resultOne.innerHTML = playerOne.result;
-    //display score of player Two
-    const resultTwo = document.querySelector('.result_two');
-    resultTwo.innerHTML = playerTwo.result;
-
+    //clear the board
+    div.forEach(item => item.innerHTML = "");
+    clearScore()
+    line.style.width = '0';
+    div.forEach(item => item.addEventListener('click', playGame));
 }
 
 
