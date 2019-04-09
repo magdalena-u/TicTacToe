@@ -1,7 +1,8 @@
 const startBtn = document.querySelector('button');
 const div = document.querySelectorAll('.box')
 const line = document.querySelector('.line');
-let flag = true
+let flag = true;
+const draw = document.querySelector('.draw');
 //constructor
 function Player(mark) {
     this.mark = mark;
@@ -105,6 +106,9 @@ function clearScore() {
     //display score of player Two
     const resultTwo = document.querySelector('.result_two');
     resultTwo.innerHTML = playerTwo.result;
+    //clear the draw result
+    draw.innerText = "";
+    draw.classList.remove('active');
     startBtn.classList.toggle('active');
 }
 
@@ -148,10 +152,12 @@ const whoWin = () => {
         }
     }
     //draw
-
+    if (scoreOne.length == 5 && scoreTwo.length == 4 || scoreOne.length == 4 && scoreTwo.length == 5) {
+        draw.innerText = "draw!";
+        draw.classList.add('active');
+        startBtn.classList.toggle('active');
+    }
 }
-
-
 
 playGame = (e) => {
     if (e.target.innerText === '') {
