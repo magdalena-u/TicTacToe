@@ -12,7 +12,8 @@ Tic Tac Toe game, which you can play in your browser.
 
 ## Source
 
-Odin Project: https://www.theodinproject.com 
+Odin Project: https://www.theodinproject.com
+
 Tic Tac Toe: https://www.theodinproject.com/courses/javascript/lessons/tic-tac-toe-javascript
 
 ## Live
